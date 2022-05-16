@@ -35,7 +35,9 @@ module.exports = {
 
 ## Setup the Project for Azure Functions
 
+```console
 $ npm run build
+```
 
 Verify `api/build` folder is created.
 
@@ -103,6 +105,15 @@ $ git push -u origin main
 ```
 
 ## Deploy the Sample Function to Azure
+
+Create the Azure Function App F1 Azure Functions: Create Function App in
+Azure...(Advanced)
+
+Now you should have the sample Azure Function responding to an HTTP GET.
+
+### Setup automatic build and deployment (CI/CD)
+
+From Azure Portal, go to the Azure Function App and select the Deployment
 
 Create a deployment GitHub Action
 

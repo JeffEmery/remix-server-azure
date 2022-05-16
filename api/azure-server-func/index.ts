@@ -1,4 +1,4 @@
-import { AzureFunction, Context, HttpRequest } from '@azure/functions'
+import type { AzureFunction, Context, HttpRequest } from '@azure/functions'
 
 const httpTrigger: AzureFunction = async function (
   context: Context,
@@ -8,7 +8,7 @@ const httpTrigger: AzureFunction = async function (
   const name = req.query.name || (req.body && req.body.name)
   const responseMessage = name
     ? 'Hello, ' + name + '. This HTTP triggered function executed successfully.'
-    : 'TEST 123 - This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.'
+    : 'Deploy Test 2: This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.'
 
   context.res = {
     // status: 200, /* Defaults to 200 */
