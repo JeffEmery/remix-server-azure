@@ -43,12 +43,25 @@ Verify `api/build` folder is created.
 
 ### VS Code Prerequisites
 
-Azure Core Tools Azure Functions Extension
+[Azure Static Web Apps extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestaticwebapps)
+[Azure Functions Core Tools](https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=v4%2Cwindows%2Ccsharp%2Cportal%2Cbash#install-the-azure-functions-core-tools)
+[Azure Functions extension](https://docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs-code?tabs=csharp#install-the-azure-functions-extension)
 
 ### Setup Azure Function within VS Code
 
-F1 - Azure Static Web Apps - Create HTTP Function... TypeScript
-azure-server-func
+Setting up the Azure Functions with the Azure Static Web tool allows you to
+create a function in the api folder with the .vscode settings in the project
+root. This allows us to keep the Remix boilerplate unmodified. We will build the
+Remix App Server as an Azure Function importing the server from
+`api/build/index.js'
+
+> F1 -> Azure Static Web Apps - Create HTTP Function... Select a language:
+> TypeScript Provide a function name: remix-server-func
+
+A `remix-server-func` folder will be created in the `api` folder with
+boilerplate Azure Function code in TypeScript.
+
+Default Azure Function configuration files will be created in the `api` folder.
 
 The following will be automatically configured in the `.vscode` folder.
 
@@ -116,60 +129,3 @@ Now you should have the sample Azure Function responding to an HTTP GET.
 From Azure Portal, go to the Azure Function App and select the Deployment
 
 Create a deployment GitHub Action
-
-# Welcome to Remix!
-
-- [Remix Docs](https://remix.run/docs)
-
-## Development
-
-From your terminal:
-
-```sh
-npm run dev
-```
-
-This starts your app in development mode, rebuilding assets on file changes.
-
-## Deployment
-
-First, build your app for production:
-
-```sh
-npm run build
-```
-
-Then run the app in production mode:
-
-```sh
-npm start
-```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying node applications, the built-in Remix app
-server is production-ready.
-
-Make sure to deploy the output of `remix build`
-
-- `build/`
-- `public/build/`
-
-### Using a Template
-
-When you ran `npx create-remix@latest` there were a few choices for hosting. You
-can run that again to create a new project, then copy over your `app/` folder to
-the new project that's pre-configured for your target server.
-
-```sh
-cd ..
-# create a new project, and pick a pre-configured host
-npx create-remix@latest
-cd my-new-remix-app
-# remove the new project's app (not the old one!)
-rm -rf app
-# copy your app over
-cp -R ../my-old-remix-app/app app
-```
