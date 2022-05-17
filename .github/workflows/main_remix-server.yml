@@ -33,6 +33,13 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
+      - name: 'Build Remix App Server'
+        shell: bash
+        run: |
+          npm install
+          npm run build --if-present
+          npm run test --if-present
+
       - name: 'Build Azure Function'
         shell: bash
         run: |
