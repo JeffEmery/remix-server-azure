@@ -1,8 +1,8 @@
-# Remix Run Server on Azure Functions
+# Remix App Server on Azure Functions
 
 Start by setting up a basic Remix Run application
 
-```consle
+```console
 $ npx create-remix@latest
 ? Where would you like to create your app? remix-server-azure
 ? What type of app do you want to create? Just the basics
@@ -44,7 +44,9 @@ Verify `api/build` folder is created.
 ### VS Code Prerequisites
 
 [Azure Static Web Apps extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestaticwebapps)
+
 [Azure Functions Core Tools](https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=v4%2Cwindows%2Ccsharp%2Cportal%2Cbash#install-the-azure-functions-core-tools)
+
 [Azure Functions extension](https://docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs-code?tabs=csharp#install-the-azure-functions-extension)
 
 ### Setup Azure Function within VS Code
