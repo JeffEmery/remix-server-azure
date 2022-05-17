@@ -33,9 +33,9 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
+        # Runs the core remix run build with a `api/build/index.js' serverBuildPath. The
+        # resulting index.js is then `require` in the Azure Function.
       - name: 'Build Remix App Server'
-        description: "Runs the core remix run build with a custom serverBuildPath. The
-                      resulting index.js is then require'd in the Azure Function."
         shell: bash
         run: |
           npm install
