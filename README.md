@@ -52,18 +52,29 @@ Verify `api/build` folder is created.
 ### Setup Azure Function within VS Code
 
 Setting up the Azure Functions with the Azure Static Web tool allows you to
-create a function in the api folder with the .vscode settings in the project
+create a function in the `api` folder with the `.vscode` settings in the project
 root. This allows us to keep the Remix boilerplate unmodified. We will build the
 Remix App Server as an Azure Function importing the server from
-`api/build/index.js'
+`api/build/index.js`
 
-> F1 -> Azure Static Web Apps - Create HTTP Function... Select a language:
-> TypeScript Provide a function name: remix-server-func
+> F1
+>
+> Azure Static Web Apps - Create HTTP Function...
+>
+> Select a language: TypeScript
+>
+> Provide a function name: remix-server-func
 
 A `remix-server-func` folder will be created in the `api` folder with
 boilerplate Azure Function code in TypeScript.
 
 Default Azure Function configuration files will be created in the `api` folder.
+
+- `.funcignore`
+- `.gitignore`
+- `host.json`
+- `package.json`
+- `tsconfig.json`
 
 The following will be automatically configured in the `.vscode` folder.
 
@@ -77,7 +88,9 @@ Debugger configuration to Attach to Node Functions
 
 #### `settings.json`
 
-Configuration settings for Azure Functions deployment
+Configuration settings for Azure Functions deployment. The important bit of this
+is the `azureFunctions.deploySubpath` setting that deploys functions to a
+`/api/[function-name]` URL.
 
 #### `tasks.json`
 
