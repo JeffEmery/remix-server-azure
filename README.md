@@ -168,4 +168,4 @@ env:
 Push the updates to the repository. After the GitHub Action runs, you should
 have a working Azure Function App with a boilerplate TypeScript http trigger
 function that can be called from URL
-https://[func_app_name].azurewebsites.net/api/[func_name]
+[https://[func_app_name].azurewebsites.net/api/[func_name]]()
