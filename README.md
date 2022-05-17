@@ -16,9 +16,7 @@ $ cd remix-server-azure/
 $ code .
 ```
 
-Change the serverBuildPath for Remix
-
-#### remix.config.js
+#### Change the serverBuildPath for Remix `remix.config.js`
 
 ```js
 /**
@@ -33,7 +31,7 @@ module.exports = {
 }
 ```
 
-Modify `.gitignore` to ignore the `api/build' folder.
+#### Modify `.gitignore` to ignore the `api/build' folder.
 
 ```js
 node_modules
@@ -64,9 +62,9 @@ Verify `api/build` folder is created.
 
 Setting up the Azure Functions with the Azure Static Web tool allows you to
 create a function in the `api` folder with the `.vscode` settings in the project
-root. This allows us to keep the Remix boilerplate unmodified. We will build the
-Remix App Server as an Azure Function importing the server from
-`api/build/index.js`
+root. This allows us to keep the Remix boilerplate unmodified except for the
+`serverBuildPath`. We will build the Remix App Server as an Azure Function
+importing the server from `api/build/index.js`
 
 > F1
 >
@@ -74,10 +72,10 @@ Remix App Server as an Azure Function importing the server from
 >
 > Select a language: TypeScript
 >
-> Provide a function name: remix-server-func
+> Provide a function name: [func_name]
 
-A `remix-server-func` folder will be created in the `api` folder with
-boilerplate Azure Function code in TypeScript.
+A `[func_name]` folder will be created in the `api` folder with boilerplate
+Azure Function code in TypeScript.
 
 Default Azure Function configuration files will be created in the `api` folder.
 
@@ -160,19 +158,14 @@ Function.
 Pull the GitHub Action workflow down to your local repository and change the
 package path for deployment.
 
-### Modify the setting in `.github/workflows/main_[func_app_name].yml`
+#### Modify the setting in `.github/workflows/main_[func_app_name].yml`
 
 ```yaml
 env:
   AZURE_FUNCTIONAPP_PACKAGE_PATH: 'api'
 ```
 
-At this point you should have a working Azure Function App with a boilerplate
-TypeScript http trigger function that can be called from URL
-https://[func_app_name].azurewebsites.net/api/HttpTrigger1
-
-### Setup automatic build and deployment (CI/CD)
-
-From Azure Portal, go to the Azure Function App and select the Deployment
-
-Create a deployment GitHub Action
+Push the updates to the repository. After the GitHub Action runs, you should
+have a working Azure Function App with a boilerplate TypeScript http trigger
+function that can be called from URL
+https://[func_app_name].azurewebsites.net/api/[func_name]
