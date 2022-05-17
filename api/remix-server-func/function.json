@@ -13,8 +13,8 @@
     {
       "type": "http",
       "direction": "out",
-      "name": "res"
+      "name": "$return"
     }
   ],
-  "scriptFile": "../dist/azure-server-func/index.js"
+  "scriptFile": "../dist/remix-server-func/index.js"
 }
