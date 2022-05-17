@@ -75,7 +75,26 @@ importing the server from `api/build/index.js`
 > Provide a function name: [func_name]
 
 A `[func_name]` folder will be created in the `api` folder with boilerplate
-Azure Function code in TypeScript.
+Azure Function code in TypeScript. Change the
+[name of the `out` binding](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-return-value?tabs=javascript)
+to `$return` since we are using TypeScript.
+
+#### `function.json`
+
+```json
+{
+  "bindings": [
+    { ... },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "$return"
+    }
+  ],
+  "scriptFile": "../dist/[func_name]/index.js"
+}
+
+```
 
 Default Azure Function configuration files will be created in the `api` folder.
 
