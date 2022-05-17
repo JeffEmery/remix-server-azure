@@ -88,7 +88,7 @@ function createRemixRequest(
   req: AzureHttpRequest,
   abortController: AbortController
 ): NodeRequest {
-  let url: RequestInfo = req.headers['x-ms-original-url']
+  let url: RequestInfo = req.headers['x-ms-original-url'] || req.url
 
   let init: RequestInit = {
     method: req.method || 'GET',
