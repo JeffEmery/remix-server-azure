@@ -87,7 +87,8 @@ Default Azure Function configuration files will be created in the `api` folder.
 - `package.json`
 - `tsconfig.json`
 
-The following will be automatically configured in the `.vscode` folder.
+The following will be automatically configured in the project root `.vscode`
+folder.
 
 #### `extension.json`
 
@@ -133,10 +134,42 @@ $ git push -u origin main
 
 ## Deploy the Sample Function to Azure
 
-Create the Azure Function App F1 Azure Functions: Create Function App in
-Azure...(Advanced)
+> F1
+>
+> Azure Functions: Create Function App in Azure...(Advanced)
+>
+> Select Subscription: [your subscription]
+>
+> Enter a globally unique name: [your remix server func app]
+>
+> Select a runtime stack: Node.js 16 LTS
+>
+> Select an OS: Linux
+>
+> ...complete the rest according to your environment...
 
-Now you should have the sample Azure Function responding to an HTTP GET.
+### Setup CI/CD from Azure Portal
+
+Go to the newly create Azure Function App in the Azure Portal. Open the Settings
+tab in the Deployment Center pane and connect to the GitHub repository.
+
+Save the configuration to create a `.github/workflows/main_[func_app_name].yml`
+GitHub Action that will build and deploy the Remix App Server as an Azure
+Function.
+
+Pull the GitHub Action workflow down to your local repository and change the
+package path for deployment.
+
+### Modify the setting in `.github/workflows/main_[func_app_name].yml`
+
+```yaml
+env:
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'api'
+```
+
+At this point you should have a working Azure Function App with a boilerplate
+TypeScript http trigger function that can be called from URL
+https://[func_app_name].azurewebsites.net/api/HttpTrigger1
 
 ### Setup automatic build and deployment (CI/CD)
 
