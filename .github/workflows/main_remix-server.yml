@@ -42,6 +42,8 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
+        # Change into the `api` folder and run the Azure Function build which compiles the
+        # TypeScript with the `tsc` command.
       - name: 'Build Azure Function'
         shell: bash
         run: |
