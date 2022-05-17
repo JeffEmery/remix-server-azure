@@ -9,11 +9,7 @@
     "start": "func start",
     "test": "echo \"No tests yet...\""
   },
-  "dependencies": {
-    "@remix-run/node": "^1.4.3",
-    "@remix-run/react": "^1.4.3",
-    "@remix-run/serve": "^1.4.3"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@azure/functions": "^3.0.0",
     "typescript": "^4.0.0"
