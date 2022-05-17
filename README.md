@@ -33,6 +33,17 @@ module.exports = {
 }
 ```
 
+Modify `.gitignore` to ignore the `api/build' folder.
+
+```js
+node_modules
+
+/.cache
+/api/build
+/public/build
+.env
+```
+
 ## Setup the Project for Azure Functions
 
 ```console
@@ -95,18 +106,6 @@ is the `azureFunctions.deploySubpath` setting that deploys functions to a
 #### `tasks.json`
 
 Build configuration for Azure Functions
-
-### Ingore the `build` folders
-
-#### `.gitignore`
-
-```js
-node_modules
-
-/.cache
-build
-.env
-```
 
 ## Create a GitHub Repository
 
