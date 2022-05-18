@@ -1,5 +1,15 @@
 # Remix App Server on Azure Functions
 
+Create a separate Azure Function App to run the Remix App Server. The Remix App
+Server will then handle responses to a Remix application deployed to Azure
+Static Web Apps by connecting the SWA to an existing AFA. This separates the
+Azure Function 'Remix Adapter' from the developers.
+
+Making a Static Web App work with the Azure Function server together is
+possible, but the debugging experience was flaky and cumbersome. Separating the
+projects and debuggers should help developers concentrate on Remix code and not
+the server side implementation.
+
 Start by setting up a basic Remix Run application
 
 ```console
