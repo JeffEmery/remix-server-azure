@@ -26,7 +26,6 @@ import type {
 
 import type {
   AppLoadContext,
-  RequestInfo as NodeRequestInfo,
   RequestInit as NodeRequestInit,
   Response as NodeResponse,
   ServerBuild,
@@ -111,7 +110,6 @@ function createRemixRequest(
     init.body = req.body
   }
 
-  // return new NodeRequest(url.href, init)
   return new NodeRequest(url, init)
 }
 
@@ -121,7 +119,6 @@ export function createRemixHeaders(
 ): NodeHeaders {
   let headers = new NodeHeaders()
 
-  // TODO: verify multiple cookies is correclty mapped
   for (let [key, value] of Object.entries(requestHeaders)) {
     if (value) {
       headers.append(key, value)
@@ -142,45 +139,7 @@ export async function sendRemixResponse(
   return {
     status: nodeResponse.status,
     headers: nodeResponse.headers.raw(),
-    cookies: [
-      { name: 'env-user', value: 'john-doe' },
-      { name: 'env-role', value: 'generic' },
-    ],
-    //body: response.body as unknown as ReadableStream,
+    cookies: undefined,
     body: await nodeResponse.text(),
   }
 }
-
-// const httpTrigger: AzureFunction = async function (
-//   context: AzureContext,
-//   req: AzureHttpRequest
-// ): Promise<AzureHttpResponse> {
-//   context.log('Here we are in the code')
-
-//   // back to the wwwroot folder, consider TypeScript is compiled into ../dist/[name]/function.js
-//   //let foo = createRequestHandler({ build: require('../../build') })
-//   let build: ServerBuild = require('../../build')
-//   let getLoadContext: AppLoadContext = undefined // TODO: where to set this?
-//   let mode: string = process.env.NODE_ENV
-
-//   let handleRequest: RequestHandler = createRemixRequestHandler(build, mode)
-
-//   // TODOD: Need to get response headers from entry.server.tsx into the response
-
-//   // the request that will be handled by node
-//   let abortController = new AbortController()
-//   let request = createRemixRequest(req, abortController)
-
-//   let loadContext =
-//     typeof getLoadContext === 'function' ? getLoadContext(req) : undefined
-
-//   //let response = await handleRequest(request, loadContext)
-//   let response = (await handleRequest(
-//     request as unknown as Request,
-//     loadContext
-//   )) as unknown as NodeResponse
-
-//   return sendRemixResponse(response, abortController)
-// }
-
-// export default httpTrigger
