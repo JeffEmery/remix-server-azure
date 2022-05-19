@@ -102,9 +102,9 @@ function createRemixRequest(
   //let url = new URL(req.url, host)
   //let url: NodeRequestInfo = req.headers['x-ms-original-url'] || req.url
 
-  let path = req.headers['x-ms-original-url'] || req.url
-  let host = req.headers['x-forwarded-host'] || req.headers.host
-  let url = new URL(path, host)
+  let url = req.headers['x-ms-original-url'] || req.url
+  // let host = req.headers['x-forwarded-host'] || req.headers.host
+  // let url = new URL(path, host)
 
   let init: NodeRequestInit = {
     method: req.method,
