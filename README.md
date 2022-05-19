@@ -213,6 +213,8 @@ This HTTP triggered function executed successfully. Pass a name in the query str
 
 Secure the Azure Function with
 [Function Key authorization](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-http-webhook-trigger?tabs=in-process%2Cfunctionsv2&pivots=programming-language-javascript#http-auth).
+[Pass a `?code=[api_key]` query string or an `x-functions-key` request header](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-http-webhook-trigger?tabs=in-process%2Cfunctionsv2&pivots=programming-language-javascript#api-key-authorization)
+to authorize the call.
 
 ## Create the Remix App Server as an Azure Function
 
@@ -232,10 +234,8 @@ Replace the Azure Function boilerplate
 #### Add a build step for the Remix App Server
 
 The Remix App Server code is built into the folder designated by
-`serverBuildPath` in `remix.config.js`. It is used by the handler function to
-ferry calls between the infrastructure and the Remix applications.
-[Pass a `?code=[api_key]` query string or an `x-functions-key` request header](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-http-webhook-trigger?tabs=in-process%2Cfunctionsv2&pivots=programming-language-javascript#api-key-authorization)
-to authorize the call.
+`serverBuildPath` in `remix.config.js`. It is imported into the handler
+function.
 
 ```yaml
 # Runs the core remix run build with a `api/build/index.js' serverBuildPath. The
