@@ -209,6 +209,11 @@ $ curl 'https://[func_app_name].azurewebsites.net/api/[func_name]'
 This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.
 ```
 
+#### Add API Key authorization
+
+Secure the Azure Function with
+[Function Key authorization](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-http-webhook-trigger?tabs=in-process%2Cfunctionsv2&pivots=programming-language-javascript#http-auth).
+
 ## Create the Remix App Server as an Azure Function
 
 To get the Azure Function setup as the Remix App Server, we have to compile the
@@ -224,6 +229,8 @@ is similar to other
 The Remix App Server code is built into the folder designated by
 `serverBuildPath` in `remix.config.js`. It is used by the handler function to
 ferry calls between the infrastructure and the Remix applications.
+[Pass a `?code=[api_key]` query string or an `x-functions-key` request header](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-http-webhook-trigger?tabs=in-process%2Cfunctionsv2&pivots=programming-language-javascript#api-key-authorization)
+to authorize the call.
 
 ```yaml
 # Runs the core remix run build with a `api/build/index.js' serverBuildPath. The
