@@ -220,7 +220,7 @@ Verify the call returns a 404 reesponse.
 
 ```console
 $ curl 'https://remix-server.azurewebsites.net/api/remix-server-func?code=4r6UK9ajD43...'
-<!DOCTYPE html>...
+This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.
 ```
 
 ## Create the Remix App Server as an Azure Function
@@ -235,8 +235,8 @@ is similar to other
 
 #### Prepare the Azure Function to run the Remix App Server
 
-Replace the Azure Function boilerplate
-[code with the remix-server-func](api/remix-server-func).
+Replace the Azure Function boilerplate code with
+[remix-server-func](api/remix-server-func).
 
 #### Add a build step for the Remix App Server
 
@@ -265,3 +265,10 @@ function.
     npm run test --if-present
     popd
 ```
+
+Adding the _Build Remix App Server_ step into the GitHub Action compiles the
+server code into the `../../build` folder. In the following _Build Azure
+Function_ step the code is _`require'd`_ in
+`createRequestHandler('../../build')`
+
+## **_- Fin -_**
