@@ -13,7 +13,7 @@ possible, but the debugging experience was flaky and cumbersome. Separating the
 projects and debuggers should help developers concentrate on Remix code and not
 the server side implementation.
 
-Start by setting up a basic Remix Run application
+## Setup the Remix Run application
 
 ```console
 $ npx create-remix@latest
@@ -55,15 +55,18 @@ node_modules
 .env
 ```
 
-## Setup the Project for Azure Functions
+#### Verify `api/build` folder is created.
 
 ```console
 $ npm run build
 ```
 
-Verify `api/build` folder is created.
+## Setup the Azure Functions
 
-### VS Code Prerequisites
+It is more simple to setup the project for Azure Functions using the VS Code
+extensions for Azure.
+
+### VS Code Extensions
 
 [Azure Static Web Apps extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestaticwebapps)
 
@@ -76,10 +79,10 @@ Verify `api/build` folder is created.
 Setting up the Azure Functions with the Azure Static Web tool allows you to
 create a function in the `api` folder with the `.vscode` settings in the project
 root. This allows us to keep the Remix boilerplate unmodified except for the
-`serverBuildPath`. We will build the Remix App Server as an Azure Function
-importing the server from `api/build/index.js`
+`serverBuildPath`. The Remix App Server build will be imported into to the Azure
+Function from `api/build/index.js`
 
-> F1
+> VS Code - F1
 >
 > Azure Static Web Apps - Create HTTP Function...
 >
@@ -87,8 +90,8 @@ importing the server from `api/build/index.js`
 >
 > Provide a function name: [func_name]
 
-A `[func_name]` folder will be created in the `api` folder with boilerplate
-Azure Function code in TypeScript. Change the
+A `[func_name]` folder will be created under the `api` folder with boilerplate
+Azure Function TypeScript code. Change the
 [name of the `out` binding](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-return-value?tabs=javascript)
 to `$return` since we are using TypeScript.
 
@@ -106,7 +109,6 @@ to `$return` since we are using TypeScript.
   ],
   "scriptFile": "../dist/[func_name]/index.js"
 }
-
 ```
 
 Default Azure Function configuration files will be created in the `api` folder.
@@ -120,23 +122,15 @@ Default Azure Function configuration files will be created in the `api` folder.
 The following will be automatically configured in the project root `.vscode`
 folder.
 
-#### `extension.json`
+- **`extension.json`** Defines the extensions used for this VS Code project
 
-Defines the extensions used for this VS Code project
+- **`launch.json`** Debugger configuration to Attach to Node Functions
 
-#### `launch.json`
+- **`settings.json`** Configuration settings for Azure Functions deployment. The
+  important bit of this is the `azureFunctions.deploySubpath` setting that
+  deploys functions to a `/api/[function-name]` URL.
 
-Debugger configuration to Attach to Node Functions
-
-#### `settings.json`
-
-Configuration settings for Azure Functions deployment. The important bit of this
-is the `azureFunctions.deploySubpath` setting that deploys functions to a
-`/api/[function-name]` URL.
-
-#### `tasks.json`
-
-Build configuration for Azure Functions
+- **`tasks.json`** Build configuration for Azure Functions
 
 ## Create a GitHub Repository
 
