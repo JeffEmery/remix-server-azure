@@ -126,13 +126,17 @@ folder.
 
 - **`launch.json`** Debugger configuration to Attach to Node Functions
 
-- **`settings.json`** Configuration settings for Azure Functions deployment. The
-  important bit of this is the `azureFunctions.deploySubpath` setting that
-  deploys functions to a `/api/[function-name]` URL.
+- **`settings.json`** Configuration settings for Azure Functions deployment
+
+  > Sets `azureFunctions.deploySubpath` to `api` so functions are located at
+  > `/api/[func-name]`
 
 - **`tasks.json`** Build configuration for Azure Functions
 
 ## Create a GitHub Repository
+
+[GitHub command line](https://github.com/cli/cli) tools make it easier to setup
+a repository from the terminal.
 
 ```console
 $ gh repo create
@@ -156,9 +160,9 @@ $ git commit -m 'init remix server azure func'
 $ git push -u origin main
 ```
 
-## Deploy the Sample Function to Azure
+### Deploy the Sample Function to Azure
 
-> F1
+> VS Code - F1
 >
 > Azure Functions: Create Function App in Azure...(Advanced)
 >
@@ -180,17 +184,40 @@ tab in the Deployment Center pane and connect to the GitHub repository.
 Save the configuration to create a `.github/workflows/main_[func_app_name].yml`
 file for a
 [Function App GitHub Action](https://github.com/Azure/actions-workflow-samples/tree/master/FunctionApp)
-that will build and deploy the Remix App Server as an Azure Function.
-
-Pull the GitHub Action workflow down to your local repository and change the
-package path for deployment.
+that will build and deploy the Remix App Server as an Azure Function. (pull the
+repo local)
 
 #### Modify the setting in `.github/workflows/main_[func_app_name].yml`
+
+Change the package path for deployment to `api`. The function runtime package
+will be built and deployed from this location. The root Remix code will not be
+deployed.
 
 ```yaml
 env:
   AZURE_FUNCTIONAPP_PACKAGE_PATH: 'api'
 ```
+
+#### Test the deployment
+
+Push the updates. After the GitHub Action runs, you should have a working Azure
+Function App with a boilerplate TypeScript http trigger function that can be
+called from URL [https://[func_app_name].azurewebsites.net/api/[func_name]]()
+
+```console
+$ curl 'https://[func_app_name].azurewebsites.net/api/[func_name]'
+This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.
+```
+
+## Create the Remix App Server as an Azure Function
+
+To get the Azure Function setup as the Remix App Server, we have to compile the
+Remix `server` build and import that into the Azure Function. The implementation
+is similar to other
+[Remix Adapters](https://remix.run/docs/en/v1/other-api/adapter).
+
+> TODO: See if there's support for creating a supported Azure Function adapter
+> in Remix
 
 #### Add a build step for the Remix App Server
 
@@ -219,8 +246,3 @@ ferry calls between the infrastructure and the Remix applications.
     npm run test --if-present
     popd
 ```
-
-Push the updates to the repository. After the GitHub Action runs, you should
-have a working Azure Function App with a boilerplate TypeScript http trigger
-function that can be called from URL
-[https://[func_app_name].azurewebsites.net/api/[func_name]]()
