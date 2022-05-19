@@ -219,7 +219,7 @@ to authorize the call.
 Verify the call returns a 404 reesponse.
 
 ```console
-$ curl 'https://remix-server.azurewebsites.net/api/remix-server-func?code=4r6UK9ajD43...'
+$ curl 'https://[func_app_name]azurewebsites.net/api/[func_name]?code=4r6U43...'
 This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.
 ```
 
