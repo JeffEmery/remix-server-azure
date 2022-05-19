@@ -78,10 +78,6 @@ export function createRequestHandler({
     let abortController = new AbortController()
     let request = createRemixRequest(req, abortController)
 
-    context.log('WEBSITE_SITE_NAME: ' + process.env['WEBSITE_SITE_NAME'])
-    context.log('NODE_ENV: ' + process.env['NODE_ENV'])
-    context.log(request.url)
-
     let loadContext =
       typeof getLoadContext === 'function'
         ? getLoadContext(context, req)
@@ -102,14 +98,7 @@ function createRemixRequest(
   req: AzureHttpRequest,
   abortController?: AbortController
 ): NodeRequest {
-  // TODO: debug req object to create a `new URL(url, host)` instead of NodeRequestInfo
-  //let host = req.headers["x-forwarded-host"] || req.headers.host;
-  //let url = new URL(req.url, host)
-  //let url: NodeRequestInfo = req.headers['x-ms-original-url'] || req.url
-
-  let url = req.headers['x-ms-original-url'] || req.url
-  // let host = req.headers['x-forwarded-host'] || req.headers.host
-  // let url = new URL(path, host)
+  let url = new URL(req.headers['x-ms-original-url'] || req.url)
 
   let init: NodeRequestInit = {
     method: req.method,
