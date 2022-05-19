@@ -77,6 +77,10 @@ export function createRequestHandler({
   let azureFunc: AzureFunction = async (context, req) => {
     let abortController = new AbortController()
     let request = createRemixRequest(req, abortController)
+
+    context.log(process.env.NODE_ENV)
+    context.log(request.url)
+
     let loadContext =
       typeof getLoadContext === 'function'
         ? getLoadContext(context, req)
