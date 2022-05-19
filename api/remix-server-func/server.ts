@@ -31,7 +31,6 @@ import type {
   Response as NodeResponse,
   ServerBuild,
 } from '@remix-run/node'
-import { isErrorResponse } from '@remix-run/react/data'
 
 /**
  * A function that returns the value to use as `context` in route `loader` and
@@ -52,14 +51,14 @@ interface HttpResponseHeaders {
 export type AzureHttpResponse = {
   status: number
   headers: HttpResponseHeaders
-  //cookies?: Array<AzureCookie>
+  cookies?: Array<AzureCookie>
   body: string
 }
 
 export type RequestHandler = (
   context: AzureContext,
   req: AzureHttpRequest
-) => Promise<AzureHttpResponse>
+) => void | Promise<AzureHttpResponse>
 
 /**
  * Returns a request handler for Azure Functions that serves the response using Remix.
@@ -75,7 +74,7 @@ export function createRequestHandler({
 }): RequestHandler {
   let handleRequest = createRemixRequestHandler(build, mode)
 
-  return async (context, req) => {
+  let azureFunc: AzureFunction = async (context, req) => {
     let abortController = new AbortController()
     let request = createRemixRequest(req, abortController)
     let loadContext =
@@ -90,6 +89,8 @@ export function createRequestHandler({
 
     return sendRemixResponse(response, abortController)
   }
+
+  return azureFunc
 }
 
 function createRemixRequest(
@@ -99,7 +100,11 @@ function createRemixRequest(
   // TODO: debug req object to create a `new URL(url, host)` instead of NodeRequestInfo
   //let host = req.headers["x-forwarded-host"] || req.headers.host;
   //let url = new URL(req.url, host)
-  let url: NodeRequestInfo = req.headers['x-ms-original-url'] || req.url
+  //let url: NodeRequestInfo = req.headers['x-ms-original-url'] || req.url
+
+  let path = req.headers['x-ms-original-url'] || req.url
+  let host = req.headers['x-forwarded-host'] || req.headers.host
+  let url = new URL(path, host)
 
   let init: NodeRequestInit = {
     method: req.method,
@@ -143,10 +148,10 @@ export async function sendRemixResponse(
   return {
     status: nodeResponse.status,
     headers: nodeResponse.headers.raw(),
-    // cookies: [
-    //   { name: 'env-user', value: 'john-doe' },
-    //   { name: 'env-role', value: 'generic' },
-    // ],
+    cookies: [
+      { name: 'env-user', value: 'john-doe' },
+      { name: 'env-role', value: 'generic' },
+    ],
     //body: response.body as unknown as ReadableStream,
     body: await nodeResponse.text(),
   }

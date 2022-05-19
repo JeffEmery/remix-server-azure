@@ -4,6 +4,9 @@ Create a separate Azure Function App to run the Remix App Server. The Remix App
 Server will then handle responses to a Remix application deployed to Azure
 Static Web Apps by connecting the SWA to an existing AFA. This separates the
 Azure Function 'Remix Adapter' from the developers.
+[See API support in Azure Static Web Apps with Azure Functions](https://docs.microsoft.com/en-us/azure/static-web-apps/apis)
+and
+[Bring your own functions to Azure Static Web Apps](https://docs.microsoft.com/en-us/azure/static-web-apps/functions-bring-your-own)
 
 Making a Static Web App work with the Azure Function server together is
 possible, but the debugging experience was flaky and cumbersome. Separating the
@@ -181,8 +184,9 @@ Go to the newly create Azure Function App in the Azure Portal. Open the Settings
 tab in the Deployment Center pane and connect to the GitHub repository.
 
 Save the configuration to create a `.github/workflows/main_[func_app_name].yml`
-GitHub Action that will build and deploy the Remix App Server as an Azure
-Function.
+file for a
+[Function App GitHub Action](https://github.com/Azure/actions-workflow-samples/tree/master/FunctionApp)
+that will build and deploy the Remix App Server as an Azure Function.
 
 Pull the GitHub Action workflow down to your local repository and change the
 package path for deployment.
@@ -192,6 +196,34 @@ package path for deployment.
 ```yaml
 env:
   AZURE_FUNCTIONAPP_PACKAGE_PATH: 'api'
+```
+
+#### Add a build step for the Remix App Server
+
+The Remix App Server code is built into the folder designated by
+`serverBuildPath` in `remix.config.js`. It is used by the handler function to
+ferry calls between the infrastructure and the Remix applications.
+
+```yaml
+# Runs the core remix run build with a `api/build/index.js' serverBuildPath. The
+# resulting index.js is then `require` in the Azure Function.
+- name: 'Build Remix App Server'
+  shell: bash
+  run: |
+    npm install
+    npm run build --if-present
+    npm run test --if-present
+
+  # Change into the `api` folder and run the Azure Function build which compiles the
+  # TypeScript with the `tsc` command.
+- name: 'Build Azure Function'
+  shell: bash
+  run: |
+    pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+    npm install
+    npm run build --if-present
+    npm run test --if-present
+    popd
 ```
 
 Push the updates to the repository. After the GitHub Action runs, you should
