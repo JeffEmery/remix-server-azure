@@ -78,7 +78,8 @@ export function createRequestHandler({
     let abortController = new AbortController()
     let request = createRemixRequest(req, abortController)
 
-    context.log(process.env.NODE_ENV)
+    context.log('WEBSITE_SITE_NAME: ' + process.env['WEBSITE_SITE_NAME'])
+    context.log('NODE_ENV: ' + process.env['NODE_ENV'])
     context.log(request.url)
 
     let loadContext =
