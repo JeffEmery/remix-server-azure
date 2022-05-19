@@ -269,6 +269,15 @@ function.
 Adding the _Build Remix App Server_ step into the GitHub Action compiles the
 server code into the `../../build` folder. In the following _Build Azure
 Function_ step the code is _`require'd`_ in
-`createRequestHandler('../../build')`
+`module.exports = createRequestHandler({ build: require('../../build') })`
+
+You should now have a functioning Remix Request Handler implemented as a Azure
+Function App with a [func_name] Azure Function. The call should return a
+Remix 404.
+
+```console
+$ curl 'https://[func_app_name].azurewebsites.net/api/[func_name]?code=46df...'
+<!DOCTYPE html>...
+```
 
 ## **_- Fin -_**
