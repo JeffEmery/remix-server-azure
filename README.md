@@ -227,7 +227,7 @@ is similar to other
 #### Prepare the Azure Function to run the Remix App Server
 
 Replace the Azure Function boilerplate
-[code with the remix-server-func](api/dist/remix-server-func).
+[code with the remix-server-func](api/remix-server-func).
 
 #### Add a build step for the Remix App Server
 
