@@ -216,6 +216,13 @@ Secure the Azure Function with
 [Pass a `?code=[api_key]` query string or an `x-functions-key` request header](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-http-webhook-trigger?tabs=in-process%2Cfunctionsv2&pivots=programming-language-javascript#api-key-authorization)
 to authorize the call.
 
+Verify the call returns a 404 reesponse.
+
+```console
+$ curl 'https://remix-server.azurewebsites.net/api/remix-server-func?code=4r6UK9ajD43...'
+<!DOCTYPE html>...
+```
+
 ## Create the Remix App Server as an Azure Function
 
 To get the Azure Function setup as the Remix App Server, we have to compile the
