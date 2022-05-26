@@ -12,7 +12,8 @@
   "dependencies": {
     "@remix-run/node": "^1.4.3",
     "@remix-run/react": "^1.4.3",
-    "@remix-run/serve": "^1.4.3"
+    "@remix-run/serve": "^1.4.3",
+    "remix-azure": "^0.0.1"
   },
   "devDependencies": {
     "@azure/functions": "^3.0.0",
