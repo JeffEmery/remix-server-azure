@@ -216,7 +216,7 @@ Secure the Azure Function with
 [Pass a `?code=[api_key]` query string or an `x-functions-key` request header](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-http-webhook-trigger?tabs=in-process%2Cfunctionsv2&pivots=programming-language-javascript#api-key-authorization)
 to authorize the call.
 
-Verify the call returns a 404 reesponse.
+Verify the call still returns a 404 response.
 
 ```console
 $ curl 'https://[func_app_name]azurewebsites.net/api/[func_name]?code=4r6U43...'
@@ -226,17 +226,17 @@ This HTTP triggered function executed successfully. Pass a name in the query str
 ## Create the Remix App Server as an Azure Function
 
 To get the Azure Function setup as the Remix App Server, we have to compile the
-Remix `server` build and import that into the Azure Function. The implementation
+Remix Server build and import that into the Azure Function. The implementation
 is similar to other
 [Remix Adapters](https://remix.run/docs/en/v1/other-api/adapter).
 
-> TODO: See if there's support for creating a supported Azure Function adapter
-> in Remix
+> TODO: See if there's community interest for creating a supported Azure
+> Function adapter in Remix
 
 #### Prepare the Azure Function to run the Remix App Server
 
-Replace the Azure Function boilerplate code with
-[remix-server-func](api/remix-server-func).
+Replace the Azure Function boilerplate code with the
+[Remix Server request handler]([api/remix-azure/index.ts)).
 
 #### Add a build step for the Remix App Server
 
