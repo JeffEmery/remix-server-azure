@@ -236,13 +236,15 @@ is similar to other
 #### Prepare the Azure Function to run the Remix App Server
 
 Replace the Azure Function boilerplate code with the
-[Remix Server request handler]([api/remix-azure/index.ts)).
+[Remix Server request handler](api/remix-azure/index.ts).
 
 #### Add a build step for the Remix App Server
 
 The Remix App Server code is built into the folder designated by
 `serverBuildPath` in `remix.config.js`. It is imported into the handler
 function.
+
+From the [GitHub Workflow definition](.github/workflows/main_remix-server.yml)
 
 ```yaml
 # Runs the core remix run build with a `api/build/index.js' serverBuildPath. The
@@ -279,5 +281,13 @@ Remix 404.
 $ curl 'https://[func_app_name].azurewebsites.net/api/[func_name]?code=46df...'
 <!DOCTYPE html>...
 ```
+
+## Running Local
+
+The developer can run the Azure Function locally by running `func start` from
+the `api` folder.
+
+> TODO: See how to connect the Remix client to the local Remix Server running on
+> the Azure Function
 
 ## **_- Fin -_**
